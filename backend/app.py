@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify
 import service
+import datetime
+
 
 app = Flask(__name__)
 
@@ -41,6 +43,7 @@ def trade(client_id):
     if request.method == 'POST':
         params = request.get_json()
         params['client_id'] = client_id
+        params['time_stamp'] = datetime.datetime.now()
         return service.TransactionService().new_transaction(params)
     elif request.method == 'GET':
         return service.TransactionService().get_trade_history(client_id)
