@@ -18,7 +18,7 @@ class TransactionModel:
     def create(self, params):
         query = """
         INSERT INTO 
-        Transctions
+        Transactions
         (client_id, time_stamp, trade_type, product_id, units_traded)
         VALUES 
         (%(client_id)s, %(time_stamp)s, %(trade_type)s, %(product_id)s, %(units_traded)s)
@@ -29,29 +29,29 @@ class TransactionModel:
             params
         )
         self.conn.commit()
-        new_transction_id = self.cur.fetchone()[0]
-        return self.get_by_transaction_id(new_transction_id)
+        new_transaction_id = self.cur.fetchone()[0]
+        return self.get_by_transaction_id(new_transaction_id)
 
     def list_items(self, where_clause=''):
         query = """
         SELECT 
-        transction_id, time_stamp, product_name, trade_type,
-        units_traded, Client.client_id, client_name, rm_id
+        transaction_id, time_stamp, product_name, trade_type,
+        units_traded, Client.client_id, client_name, rm_id, unit_daily_credit_award
         FROM 
         Transactions 
         INNER JOIN Product 
         ON Transactions.product_id = Product.product_id
         INNER JOIN Client 
-        ON Transctions.client_id = Client.client_id
+        ON Transactions.client_id = Client.client_id
         
         """ + where_clause + ';'
         self.cur.execute(query)
         return pd.DataFrame(self.cur.fetchall(),
-                            columns=['transction_id', 'time_stamp', 'product_name', 'trade_type',
-                                     'units_traded', 'client_id', 'client_name', 'rm_id'])
+                            columns=['transaction_id', 'time_stamp', 'product_name', 'trade_type',
+                                     'units_traded', 'client_id', 'client_name', 'rm_id', 'unit_daily_credit_award'])
 
     def get_by_transaction_id(self, transaction_id):
-        where_clause = f'WHERE transction_id = {transaction_id}'
+        where_clause = f'WHERE transaction_id = {transaction_id}'
         return self.list_items(where_clause)
 
     def get_by_rm_id(self, rm_id):
@@ -93,10 +93,10 @@ class HoldingsModel:
         return self.get_by_holding_id(new_holding_id)
 
     def update(self, holding_id, update_dict):
-        set_query = ' '.join([f'{column} = {value}' for column, value in update_dict.items()])
+        set_query = ', '.join([f'{column} = {value}' for column, value in update_dict.items()])
         query = f'UPDATE Holdings ' \
                 f'SET {set_query} ' \
-                f'WHERE id = {holding_id};'
+                f'WHERE holding_id = {holding_id};'
         self.cur.execute(query)
         self.conn.commit()
         return self.get_by_holding_id(holding_id)
@@ -104,7 +104,7 @@ class HoldingsModel:
     def list_items(self, where_clause=''):
         query = """
         SELECT 
-        holding_id, Client.client_id, client_name, 
+        holding_id, Client.client_id, client_name, Product.product_id,
         product_name, units_held, daily_credit_award, rm_id
         FROM 
         Holdings 
@@ -116,7 +116,7 @@ class HoldingsModel:
         """ + where_clause + ';'
         self.cur.execute(query)
         return pd.DataFrame(self.cur.fetchall(),
-                            columns=['holding_id', 'client_id', 'client_name',
+                            columns=['holding_id', 'client_id', 'client_name', 'product_id',
                                      'product_name', 'units_held', 'daily_credit_award', 'rm_id'])
 
     def get_by_holding_id(self, holding_id):
@@ -129,6 +129,10 @@ class HoldingsModel:
 
     def get_by_rm_id(self, rm_id):
         where_clause = f'WHERE rm_id = {rm_id}'
+        return self.list_items(where_clause)
+
+    def get_by_client_product_id(self, client_id, product_id):
+        where_clause = f'WHERE Client.client_id = {client_id} AND Product.product_id = {product_id}'
         return self.list_items(where_clause)
 
 
@@ -349,12 +353,13 @@ class RMModel:
         RM
 
         """ + where_clause + ';'
+        #print(query)
         self.cur.execute(query)
         return pd.DataFrame(self.cur.fetchall(),
                             columns=['rm_id',
                                      'rm_name', 'rm_email','rm_team',
                                     'group_name', 'area_name', 'country_name', 'pwd'])
 
-    def get_by_product_id(self, product_id):
-        where_clause = f'WHERE product_id = {product_id}'
+    def get_by_rm_email(self, rm_email):
+        where_clause = f'WHERE rm_email = \'{rm_email}\''
         return self.list_items(where_clause)

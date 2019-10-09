@@ -28,7 +28,22 @@ def my_clients(rm_id):
 def check_client_credentials():
     params = request.get_json()
     return jsonify(service.ClientService().check_credentials(params))
-    #return jsonify(params)
+
+
+@app.route('/login/rm')
+def check_rm_credentials():
+    params = request.get_json()
+    return jsonify(service.RMService().check_rm_credentials(params))
+
+
+@app.route('/client/<client_id>/trade', methods=['GET', 'POST'])
+def trade(client_id):
+    if request.method == 'POST':
+        params = request.get_json()
+        params['client_id'] = client_id
+        return service.TransactionService().new_transaction(params)
+    elif request.method == 'GET':
+        return service.TransactionService().get_trade_history(client_id)
 
 
 if __name__ == '__main__':
