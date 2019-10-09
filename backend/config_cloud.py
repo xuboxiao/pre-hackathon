@@ -5,5 +5,3 @@ connection_parameters = {
             'user': 'dbbhacks01@dbbhacks',
             'password': 'zaq12wsx$'
 }
-
-

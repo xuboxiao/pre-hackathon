@@ -1,10 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 import service
 import datetime
+from flask_cors import CORS
 
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def hello_world():
@@ -13,6 +14,7 @@ def hello_world():
 
 @app.route('/client/<client_id>/wallet', methods=['GET'])
 def get_client_wallet_data(client_id):
+    resp = Response
     return service.ClientWalletService().get_wallet_data(client_id)
 
 
