@@ -3,7 +3,7 @@
 <html>
 <head>
   <link rel="stylesheet" href="styleNew.css" type="text/css">
-  <title>DB Eco Wallet</title>
+  <title>dbECO App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -18,17 +18,21 @@
 
         <div id="containerHeader">
                 <header id="header-background">
-                <h1><span class="blue-text">DB Eco Wallet</span>
-                  <img class="float" src="../images/logoLogin1.png" /></h1>
-                </header>
+                 
+     </header>
                 </div>
 
-    <div id="container">
-       <section1>
+                
+
+    <div id="container-fluid">
+        <section2>
+            <img class="float" src="../images/dbecologo.jpg" style="width:400px">
+          </section2>
+      <section1>
     <div class="container">
-  <h3 ><img class="float" src="../images/db.png"   ></h3>
+      <h4 ><img class="float" src="../images/db.png" style="width:60px"  >Deutsche Bank</h4>
   <br>
-  <form action="">
+  <form action="app.js">
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
@@ -40,13 +44,12 @@
 
     <div class="form-group">
     <label for="userType">Select user</label>
-      <select class="form-control" id="userType">
-        <option>Select</option>
-        <option>Relationship Manager</option>
-        <option>Client</option>
+      <select class="form-control" id="userType" name="userType">
+        <option value="rm">Relationship Manager</option>
+        <option value="client">Client</option>
       </select>
     </div>
-
+  
 <br>
     <button type="submit" class="btn btn-success">Submit</button>
     <a href="forgotPwd.html">Forgot Password</a>
@@ -60,16 +63,16 @@
 
   
 
+  <div id="footerContainer"  style="margin-bottom:10"  style="clear: both;" class="w3-row-padding w3-margin-bottom ">
+    <footer class="page-footer  fixed-bottom text-center footerContainer">
+    &copy;Deutsche Bank Singapore Hackathon, 2019
 
-    <div id="footerContainer"  style="margin-bottom:10"  style="clear: both;" class="w3-row-padding w3-margin-bottom">
-        <footer>
-        &copy;Deutsche Bank Singapore Hackathon, 2019
-       <a href="#" class="fa fa-twitter"></a>
-       <a href="#" class="fa fa-google"></a>
-       <a href="#" class="fa fa-linkedin"></a>
- 
-    </footer>
-      </div>
+   <a href="https://twitter.com" target="_blank" class="fa fa-twitter"></a>
+   <a href="https://google.com" class="fa fa-google"></a>
+   <a href="https://linkedin.com" class="fa fa-linkedin"></a>
+
+</footer>
+</div>
   
    
 </body>
