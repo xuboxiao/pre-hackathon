@@ -13,7 +13,8 @@ class TestData:
         self.client = {
             'client_name' : 'CCcc',
             'industry_id' : 2,
-            'rm_id' : 2
+            'rm_id' : 2,
+            'pwd': 'yes'
         }
         self.wallet = {
             'client_id' : 1000,

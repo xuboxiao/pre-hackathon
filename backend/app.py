@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import service
 
 app = Flask(__name__)
@@ -22,6 +22,13 @@ def my_clients(rm_id):
         return service.ClientService().new_client(params)
     elif request.method == 'GET':
         return service.ClientService().get_clients(rm_id)
+
+
+@app.route('/login/client')
+def check_client_credentials():
+    params = request.get_json()
+    return jsonify(service.ClientService().check_credentials(params))
+    #return jsonify(params)
 
 
 if __name__ == '__main__':

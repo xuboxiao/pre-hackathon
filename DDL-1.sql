@@ -28,7 +28,7 @@ rm_name text,
 rm_team text,
 group_name text,
 area_name text,
-country_name text
+country_name text,
 pwd text);
 
 create table client

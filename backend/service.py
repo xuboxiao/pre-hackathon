@@ -39,6 +39,13 @@ class ClientService:
         result = self.model.get_by_rm_id(rm_id)
         return result.loc[:,['client_id', 'client_name', 'industry_name']].to_json(orient='records')
 
+    def check_credentials(self, params):
+        query_result = self.model.get_by_client_id(params['client_id']).loc[0]
+        result = {'login_sucessful': False}
+        if query_result.loc['pwd'] == params['pwd']:
+            result['login_sucessful'] = True
+        return result
+
 
 class TransactionService:
     def __init__(self):
