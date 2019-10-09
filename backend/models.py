@@ -157,13 +157,13 @@ class ClientWalletModel:
         )
         self.conn.commit()
         new_client_wallet_id = self.cur.fetchone()[0]
-        return self.get_by_wallet_id(new_client_wallet_id)
+        return self.get_by_client_wallet_id(new_client_wallet_id)
 
     def list_items(self, where_clause=''):
         query = """
         SELECT 
         client_wallet_id, date_updated, Client.client_id, client_name, 
-        total_daily_credit_award, total_credit, rm_team, Client.rm_id
+        total_daily_credit_award, total_credit, rm.rm_team, Client.rm_id
         FROM 
         Client_Wallet 
         INNER JOIN Client 
@@ -237,8 +237,8 @@ class ClientModel:
     def create(self, params):
         query = """
         INSERT INTO Client
-        (client_name, industry_id, rm_id)
-        VALUES (%(client_name)s, %(industry_id)s, %(rm_id)s
+        (client_name, industry_id, rm_id, pwd)
+        VALUES (%(client_name)s, %(industry_id)s, %(rm_id)s, %(pwd)s)
         RETURNING client_id;
         """
         self.cur.execute(
@@ -251,7 +251,7 @@ class ClientModel:
 
     def list_items(self, where_clause=''):
         query = """
-        SELECT client_id, client_name, industry_name, base_credit, rm_id
+        SELECT client_id, client_name, industry_name, base_credit, rm_id, pwd
         FROM 
         Client INNER JOIN Industry ON  Client.industry_id = Industry.industry_id
 
@@ -259,7 +259,7 @@ class ClientModel:
         self.cur.execute(query)
         return pd.DataFrame(self.cur.fetchall(),
                             columns=['client_id', 'client_name',
-                                     'industry_name', 'base_credit', 'rm_id'])
+                                     'industry_name', 'base_credit', 'rm_id', 'pwd'])
 
     def get_by_client_id(self, client_id):
         where_clause = f'WHERE Client.client_id = {client_id}'
@@ -322,6 +322,38 @@ class ProductModel:
         return pd.DataFrame(self.cur.fetchall(),
                             columns=['product_id',
                                      'product_name', 'unit_daily_credit_award'])
+
+    def get_by_product_id(self, product_id):
+        where_clause = f'WHERE product_id = {product_id}'
+        return self.list_items(where_clause)
+
+
+class RMModel:
+    def __init__(self):
+        self.conn = pg.connect(**config.connection_parameters)
+        self.cur = self.conn.cursor()
+
+    def __del__(self):
+        self.cur.close()
+        self.conn.close()
+
+    def commit(self):
+        self.conn.commit()
+
+    def list_items(self, where_clause=''):
+        query = """
+        SELECT 
+        rm_id, rm_name, rm_email, rm_team, 
+        group_name, area_name, country_name, pwd
+        FROM 
+        RM
+
+        """ + where_clause + ';'
+        self.cur.execute(query)
+        return pd.DataFrame(self.cur.fetchall(),
+                            columns=['rm_id',
+                                     'rm_name', 'rm_email','rm_team',
+                                    'group_name', 'area_name', 'country_name', 'pwd'])
 
     def get_by_product_id(self, product_id):
         where_clause = f'WHERE product_id = {product_id}'

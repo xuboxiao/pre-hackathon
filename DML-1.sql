@@ -1,7 +1,7 @@
-insert into rm (rm_id,rm_email ,rm_name ,team_name ,group_name ,area_name ,country_name ) values (1,'RM1@db.com','RM1','Team1','Group1','Area1','APAC');
-insert into rm (rm_id,rm_email ,rm_name ,team_name ,group_name ,area_name ,country_name ) values (2,'RM2@db.com','RM2','Team2','Group1','Area1','APAC');
-insert into rm (rm_id,rm_email ,rm_name ,team_name ,group_name ,area_name ,country_name ) values (3,'RM3@db.com','RM3','Team3','Group2','Area2','APAC');
-insert into rm (rm_id,rm_email ,rm_name ,team_name ,group_name ,area_name ,country_name ) values (4,'RM4@db.com','RM4','Team4','Group2','Area2','APAC');
+insert into rm (rm_id,rm_email ,rm_name ,rm_team ,group_name ,area_name ,country_name, pwd ) values (1,'RM1@db.com','RM1','Team1','Group1','Area1','APAC', 'RM1');
+insert into rm (rm_id,rm_email ,rm_name ,rm_team ,group_name ,area_name ,country_name, pwd ) values (2,'RM2@db.com','RM2','Team2','Group1','Area1','APAC', 'RM2');
+insert into rm (rm_id,rm_email ,rm_name ,rm_team ,group_name ,area_name ,country_name, pwd ) values (3,'RM3@db.com','RM3','Team3','Group2','Area2','APAC', 'RM3');
+insert into rm (rm_id,rm_email ,rm_name ,rm_team ,group_name ,area_name ,country_name, pwd ) values (4,'RM4@db.com','RM4','Team4','Group2','Area2','APAC', 'RM4');
 
 
 insert into industry (industry_id, industry_name,base_credit ) values (1,'Environmental Services and Recycling',90000);
@@ -23,10 +23,6 @@ insert into product (product_id, product_name,unit_daily_credit_award) values (8
 insert into product (product_id, product_name,unit_daily_credit_award) values (9,'Parkson Retail Group',0);
 insert into product (product_id, product_name,unit_daily_credit_award) values (10,'Indiabulls Property Investements',0);
 
-insert into client (client_id,client_name,industry_id,rm_id) values (1000,'Berkshire Hathaway Holdings',1,1);
-insert into client (client_id,client_name,industry_id,rm_id) values (2000,'General Electric',3,2);
-insert into client (client_id,client_name,industry_id,rm_id) values (3000,'JC Penny',6,3);
-insert into client (client_id,client_name,industry_id,rm_id) values (4000,'TATA Group',4,4);
 
 commit;
 

@@ -1,6 +1,5 @@
 drop table rm_login;
 drop table client_login;
-drop table rm_wallet;
 drop table client_wallet;
 drop table transactions;
 drop table holdings;
@@ -26,17 +25,19 @@ create table rm
 (rm_id numeric primary key,
 rm_email text,
 rm_name text,
-team_name text,
+rm_team text,
 group_name text,
 area_name text,
-country_name text);
+country_name text
+pwd text);
 
 create table client
 (
 client_id serial primary key,
 client_name text,
 industry_id integer references industry,
-rm_id integer references rm);
+rm_id integer references rm,
+pwd text);
 
 create table holdings
 (holding_id serial primary key,
@@ -65,14 +66,6 @@ create table client_login
 username text primary key,
 pwd text);
 
-create table rm_wallet
-(
-rm_wallet_id serial primary key,
-rm_id integer references rm,
-total_daily_credit_award numeric,
-total_credit numeric,
-date_updated timestamp
-);
 create table client_wallet
 (
 client_wallet_id serial primary key,
