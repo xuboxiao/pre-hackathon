@@ -2,6 +2,22 @@
   margin: 0 auto 0 auto;
   text-align: left;
 }
+h1{
+
+}
+#bodyLogin {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 13px;
+  font-family: arial, helvetica, sens-serif;
+  color: #000000;
+   background-color: #221a4d;
+   background-image: url(../images/logo.png);
+   background-repeat: repeat-x;
+   background-repeat: repeat-y;
+   background-size:cover;
+}
 
 body {
   margin: 0;
@@ -11,7 +27,7 @@ body {
   font-family: arial, helvetica, sens-serif;
   color: #000000;
    background-color: #221a4d;
-   background-image: url(images/logo.png);
+   background-image: url(../images/layout.png);
    background-repeat: repeat-x;
    background-repeat: repeat-y;
    background-size:cover;
@@ -19,6 +35,12 @@ body {
 
 
 
+img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 80px;
+}
 
 
 h2 {
@@ -55,11 +77,15 @@ header h2 {
 }
 
 header h1 span.green-text {
-  color: #316e09;
+  color: #1b9e01;
+  font-family:Arial, Helvetica, sans-serif;
 }
-
 header h2 span.white-text {
   color: #ffffff;
+}
+header h1 span.blue-text {
+  color: #221a4d;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 section {
@@ -91,19 +117,36 @@ section1 {
 
 #container {
   width: 960px;
+  padding: 10px;
 }
 
 #containerNav {
     width: 960px;
-    height:5px;
+    height:1px;
   }
-#menu {
-  display: block;
-  float: left;
-  clear: both;
-  width: 960px;
-  height: 70px;
+
+  .navbar-custom {
+    background-color: #45a049;
+    height:15px;
 }
+/* change the brand and text color */
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text {
+    color:#ffffff;
+}
+/* change the link color */
+.navbar-custom .navbar-nav .nav-link {
+    color:#45a049;
+}
+/* change the color of active or hovered links */
+.navbar-custom .nav-item.active .nav-link,
+.navbar-custom .nav-item:hover .nav-link {
+    color: #ffffff;
+}
+
+  #containerHeader {
+    width: 960px;
+  }
 
 
 
@@ -131,19 +174,29 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-div.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
+
+
 .fa {
   padding: 20px;
   font-size: 30px;
   width: 50px;
   text-align: center;
   text-decoration: none;
+  margin: 5px 3px;
+  border-radius: 70%;
 }
+
 .fa-twitter {
   background: #55ACEE;
+  color: white;
+}
+
+.fa-google {
+  background: #dd4b39;
+  color: white;
+}
+
+.fa-linkedin {
+  background: #007bb5;
   color: white;
 }
