@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request, jsonify
+import service
 
 app = Flask(__name__)
 
@@ -6,6 +7,28 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return 'Hello World!'
+
+
+@app.route('/client/<client_id>/wallet', methods=['GET'])
+def get_client_wallet_data(client_id):
+    return service.ClientWalletService().get_wallet_data(client_id)
+
+
+@app.route('/rm/<rm_id>/my_clients', methods=['POST', 'GET'])
+def my_clients(rm_id):
+    if request.method == 'POST':
+        params = request.get_json()
+        params['rm_id'] = rm_id
+        return service.ClientService().new_client(params)
+    elif request.method == 'GET':
+        return service.ClientService().get_clients(rm_id)
+
+
+@app.route('/login/client')
+def check_client_credentials():
+    params = request.get_json()
+    return jsonify(service.ClientService().check_credentials(params))
+    #return jsonify(params)
 
 
 if __name__ == '__main__':
