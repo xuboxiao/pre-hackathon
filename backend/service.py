@@ -108,6 +108,22 @@ class TransactionService:
         result['time_stamp'] = result['time_stamp'].dt.strftime('%d-%B-%Y %H:%M:%S')
         return result.to_json(orient='records')
 
+'''
+class ClientWalletService():
+    def __init__(self):
+        self.model = models.ClientWalletModel()
+        self.holding_model = models.HoldingsModel()
 
-
+    def daily_record(self, client_id):
+        holding = self.holding_model.get_by_client_id(client_id)
+        total_daily_credit_award = holding['daily_credit_award'].sum()
+        latest_record = self.model.get_by_client_id_latest(client_id).loc[0]
+        total_credit = latest_record.loc['total_credit'] + total_daily_credit_award
+        params = {'client_id': client_id,
+                  'date_updated': datetime.datetime.now(),
+                  'total_daily_credit_award': total_daily_credit_award,
+                  'total_credit': total_credit}
+        result = self.model.create(params).loc[0]
+        return result.loc[['total_daily_credit_award', 'total_credit']].to_json()
+'''
 

@@ -51,5 +51,10 @@ def trade(client_id):
         return service.TransactionService().get_trade_history(client_id)
 
 
+@app.route('/client/<client_id>/daily_record')
+def daily_record(client_id):
+    service.ClientWalletService().daily_record(client_id)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=8080, host='0.0.0.0')

@@ -189,6 +189,17 @@ class ClientWalletModel:
         where_clause = f'WHERE Client.client_id = {client_id}'
         return self.list_items(where_clause)
 
+    def get_by_client_id_latest(self, client_id):
+        query_max_date = f'SELECT ' \
+                            f'MAX(date_updated) ' \
+                            f'FROM ' \
+                            f'Client_Wallet ' \
+                            f'WHERE client_id = {client_id} '
+        self.cur.execute(query)
+        return pd.DataFrame(self.cur.fetchall(),
+                            columns=['client_wallet_id', 'date_updated', 'client_id',
+                                     'total_daily_credit_award', 'total_credit'])
+
     def get_by_rm_id(self, rm_id):
         query = f'SELECT ' \
                 f'client_wallet_id, MAX(date_updated), Client.client_id, client_name, ' \
