@@ -14,8 +14,9 @@ def hello_world():
 
 @app.route('/client/<client_id>/wallet', methods=['GET'])
 def get_client_wallet_data(client_id):
-    resp = Response
-    return service.ClientWalletService().get_wallet_data(client_id)
+    resp = Response(service.ClientWalletService().get_wallet_data(client_id))
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 
 @app.route('/rm/<rm_id>/my_clients', methods=['POST', 'GET'])
