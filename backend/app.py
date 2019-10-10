@@ -7,6 +7,13 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
+
+def add_header(data):
+    resp = Response(data, mimetype='application/json')
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
+
+
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -14,9 +21,7 @@ def hello_world():
 
 @app.route('/client/<client_id>/wallet', methods=['GET'])
 def get_client_wallet_data(client_id):
-    resp = Response(service.ClientWalletService().get_wallet_data(client_id))
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    return resp
+    return add_header(service.ClientWalletService().get_wallet_data(client_id))
 
 
 @app.route('/rm/<rm_id>/my_clients', methods=['POST', 'GET'])
@@ -24,21 +29,21 @@ def my_clients(rm_id):
     if request.method == 'POST':
         params = request.get_json()
         params['rm_id'] = rm_id
-        return service.ClientService().new_client(params)
+        return add_header(service.ClientService().new_client(params))
     elif request.method == 'GET':
-        return service.ClientService().get_clients(rm_id)
+        return add_header(service.ClientService().get_clients(rm_id))
 
 
 @app.route('/login/client')
 def check_client_credentials():
     params = request.get_json()
-    return jsonify(service.ClientService().check_credentials(params))
+    return add_header(jsonify(service.ClientService().check_credentials(params)))
 
 
 @app.route('/login/rm')
 def check_rm_credentials():
     params = request.get_json()
-    return jsonify(service.RMService().check_rm_credentials(params))
+    return add_header(jsonify(service.RMService().check_rm_credentials(params)))
 
 
 @app.route('/client/<client_id>/trade', methods=['GET', 'POST'])
