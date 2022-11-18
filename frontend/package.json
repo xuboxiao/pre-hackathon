@@ -12,7 +12,7 @@
     "react-dropdown-select": "^3.6.3",
     "react-minimal-pie-chart": "^5.0.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "5.0.1",
     "react-select": "^3.0.8",
     "reactstrap": "^8.0.1"
   },
